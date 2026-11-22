@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ember Clash — a card duel</title>
+<link rel="stylesheet" href="./src/style.css">
+</head>
+<body>
+<div id="app">
+  <!-- Title screen -->
+  <section id="title-screen" class="screen">
+    <div class="title-inner">
+      <div class="title-gems" aria-hidden="true">
+        <span class="gem gem-ember"></span><span class="gem gem-tide"></span><span class="gem gem-gale"></span><span class="gem gem-stone"></span>
+      </div>
+      <h1>EMBER CLASH</h1>
+      <p class="tagline">A duel of sparks, tides, gales &amp; stone</p>
+      <p class="rules-blurb">Outwit the Rival Warden. Spend embers to play cards,
+        break through shields, and bring their hearth to zero before yours falls.</p>
+      <button id="start-btn" class="big-btn">Begin the Duel</button>
+      <p class="hint">Mouse: click a card to play it &nbsp;·&nbsp; Keys: 1–7 play a card, Enter ends turn, R restarts, M mutes</p>
+      <p class="credit">An original game — no borrowed names, art or music.</p>
+    </div>
+  </section>
+
+  <!-- Duel table -->
+  <section id="table-screen" class="screen hidden">
+    <header class="topbar">
+      <div class="brand">EMBER CLASH</div>
+      <div class="turn-pill">Turn <span id="turn-num">1</span> · <span id="turn-who">Your turn</span></div>
+      <div class="top-actions">
+        <button id="sound-btn" class="small-btn" title="Mute (M)">Sound: On</button>
+        <button id="restart-btn" class="small-btn" title="Restart (R)">Restart</button>
+      </div>
+    </header>
+
+    <!-- Opponent side -->
+    <div class="side opponent-side">
+      <div class="duelist opponent">
+        <div class="portrait portrait-foe" aria-hidden="true">W</div>
+        <div class="duelist-info">
+          <div class="duelist-name">Rival Warden</div>
+          <div class="vitals">
+            <span class="life" title="Hearth (life)"><span class="heart-ico" aria-hidden="true">♥</span> <b id="foe-life">30</b><span class="max-life">/30</span></span>
+            <span class="shield" title="Shield — absorbs damage first"><span class="shield-ico" aria-hidden="true">⛨</span> <b id="foe-shield">0</b></span>
+            <span class="mana" title="Embers (mana)"><span class="ember-ico" aria-hidden="true">●</span> <b id="foe-mana">1</b><span class="max-mana">/10</span></span>
+          </div>
+          <div class="life-bar"><div id="foe-life-fill" class="life-fill foe-fill"></div></div>
+        </div>
+      </div>
+      <div id="foe-hand" class="hand foe-hand" aria-label="Opponent's hand"></div>
+      <div class="deck-pile" title="Opponent's deck"><span id="foe-deck-count">20</span></div>
+    </div>
+
+    <!-- Middle: log + played card stage -->
+    <div class="middle">
+      <div id="stage" class="stage" aria-hidden="true"></div>
+      <ol id="battle-log" class="battle-log" aria-live="polite"></ol>
+    </div>
+
+    <!-- Player side -->
+    <div class="side player-side">
+      <div class="duelist player">
+        <div class="portrait portrait-you" aria-hidden="true">Y</div>
+        <div class="duelist-info">
+          <div class="duelist-name">You — the Emberwright</div>
+          <div class="vitals">
+            <span class="life" title="Hearth (life)"><span class="heart-ico" aria-hidden="true">♥</span> <b id="you-life">30</b><span class="max-life">/30</span></span>
+            <span class="shield" title="Shield — absorbs damage first"><span class="shield-ico" aria-hidden="true">⛨</span> <b id="you-shield">0</b></span>
+            <span class="mana" title="Embers (mana)"><span class="ember-ico" aria-hidden="true">●</span> <b id="you-mana">1</b><span class="max-mana">/10</span></span>
+          </div>
+          <div class="life-bar"><div id="you-life-fill" class="life-fill you-fill"></div></div>
+        </div>
+        <button id="end-turn-btn" class="end-turn-btn">End Turn ⏎</button>
+      </div>
+      <div id="you-hand" class="hand you-hand" aria-label="Your hand"></div>
+      <div class="deck-pile" title="Your deck"><span id="you-deck-count">20</span></div>
+    </div>
+  </section>
+
+  <!-- End screen -->
+  <section id="end-screen" class="screen hidden">
+    <canvas id="confetti" aria-hidden="true"></canvas>
+    <div class="end-inner">
+      <h1 id="end-title">VICTORY</h1>
+      <p id="end-sub">The Warden's hearth is cold.</p>
+      <div class="end-stats">
+        <span>Turns: <b id="end-turns">0</b></span>
+        <span>Your hearth: <b id="end-you-life">0</b></span>
+        <span>Rival hearth: <b id="end-foe-life">0</b></span>
+      </div>
+      <button id="again-btn" class="big-btn">Duel Again</button>
+      <p class="hint">Press R or Enter to play again</p>
+    </div>
+  </section>
+</div>
+<p id="status" role="status" aria-live="polite"></p>
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>
